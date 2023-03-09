@@ -24,7 +24,7 @@
         <li>
             Faça o download ou clone o repositório do projeto em seu computador:
         </li>
-        <pre><code>git clone https://github.com/seu-usuario/seu-repositorio.git</code></pre>
+        <pre><code>git clone https://github.com/wendel-sa/chat-laravel.git</code></pre>
         <li>Acesse a pasta do projeto e execute o comando abaixo para instalar as dependências:</li>
         <pre><code>composer install</code></pre>
         <li>Renomeie o arquivo .env.example para .env e configure as credenciais de acesso à API OpenAI ChatGPT.</li>

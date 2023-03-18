@@ -33,3 +33,8 @@ Route::middleware([
         return view('chat');
     })->name('chat');
 });
+
+//rota de share da mensagem
+Route::get('/share/{id}', function () {
+    return view('share');
+})->name('share');

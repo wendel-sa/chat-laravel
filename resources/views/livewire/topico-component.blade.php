@@ -1,4 +1,4 @@
-<div id="contactsList" class="offcanvas-lg offcanvas-start position-absolute position-lg-relative h-100 bg-secondary shadow-none border-end" data-bs-scroll="true" data-bs-backdrop="false" style="max-height: 712px;">
+<div id="contactsList" class="offcanvas-lg offcanvas-start position-absolute position-lg-relative h-100 bg-secondary shadow-none border-end" data-bs-scroll="true" data-bs-backdrop="false" style="max-height: 100vh;">
     <div class="card-header w-100 border-0 p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0">Novo Topico</h1>
@@ -44,13 +44,10 @@
             <div class="w-100 ps-2 ms-1">
                 <div class="d-flex align-items-center justify-content-between mb-1">
                     <h6 class="mb-0 me-2">
-
                         {{ $topico->titulo }}
-
                     </h6>
                     <span class="fs-xs text-muted">12:04</span>
                 </div>
-                <p class="fs-sm text-body mb-0">Typing...</p>
             </div>
         </a>
         @endif

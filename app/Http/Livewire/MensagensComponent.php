@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Conversa;
 //Topicos
 use App\Models\Topico;
+use App\Models\vozModelo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class MensagensComponent extends Component
 {
 
-    protected $listeners = ['topicoSelected' => 'topicoSelected', 'getAiMessages' => 'getAiMessages'];
+    protected $listeners = ['topicoSelected' => 'topicoSelected', 'getAiMessages' => 'getAiMessages', 'transcript' => 'transcript'];
 
     public $topico = null, $titulo = null, $numMensagens = 0;
 
@@ -21,6 +22,35 @@ class MensagensComponent extends Component
     public $input = '';
 
     public $select = false;
+
+    public $voz, $userVozModelo;
+
+    public function mount()
+    {
+        $this->getVoz();
+    }
+
+    public function getVoz()
+    {
+        //se o usuario logado n tiver uma vozModelo, cria uma
+        if (vozModelo::where('user_id', Auth::user()->id)->doesntExist()) {
+            $vozModelo = new vozModelo();
+            $vozModelo->user_id = Auth::user()->id;
+            $vozModelo->save();
+        }
+
+        //pega a vozModelo do usuario logado
+        $this->userVozModelo = vozModelo::where('user_id', Auth::user()->id)->first();
+
+        //se a vozModelo do usuario logado n tiver uma voz, cria uma
+        $this->voz = $this->userVozModelo->voz;
+    }
+
+    public function transcript($transcript)
+    {
+        $this->input = $transcript;
+        $this->sendMessage();
+    }
     public function topicoSelected($topico)
     {
         $this->topico = $topico;
@@ -50,7 +80,7 @@ class MensagensComponent extends Component
         // Cria um array vazio para armazenar as mensagens
         $messagesArray = array();
         // Pega as ultimas 20 mensagens
-        $messages = Conversa::where('topico_id', $this->topico)->orderBy('created_at', 'desc')->take(5)->get();
+        $messages = Conversa::where('topico_id', $this->topico)->orderBy('created_at', 'desc')->take(10)->get();
         // Adiciona as outras mensagens ao array de mensagens com as ultimas 20 mensagens
         foreach ($messages as $message) {
             $messagesArray[] = array("role" => $message->role, "content" => $message->content);
@@ -84,7 +114,6 @@ class MensagensComponent extends Component
         curl_close($ch);
 
         $response = json_decode($result, true);
-
         $conversa = new Conversa();
         $conversa->topico_id = $this->topico;
         $conversa->role = 'assistant';
@@ -92,6 +121,13 @@ class MensagensComponent extends Component
         $conversa->save();
 
         $this->getMessages();
+
+        $this->emit('texto', $conversa->id);
+    }
+
+    public function qrcode($id)
+    {
+        $this->emit('qrcode', $id);
     }
 
     public function deleteChat()
@@ -109,6 +145,11 @@ class MensagensComponent extends Component
         $this->messages = Conversa::where('topico_id', $this->topico)->get();
         $this->numMensagens = $this->messages->count();
         $this->emit('scrollToBottom');
+    }
+
+    public function textAudio($conversaID)
+    {
+        $this->emit('texto', $conversaID);
     }
 
     public function render()

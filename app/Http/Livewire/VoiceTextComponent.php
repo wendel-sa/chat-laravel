@@ -4,10 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class ChatComponent extends Component
+class VoiceTextComponent extends Component
 {
     public function render()
     {
-        return view('livewire.chat-component');
+        return view('livewire.voice-text-component');
     }
 }

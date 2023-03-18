@@ -135,6 +135,8 @@
         }
     </style>
 
+
+
     <!-- Theme mode -->
     <script>
         let mode = window.localStorage.getItem('mode'),
@@ -172,7 +174,7 @@
 
     <!-- Page wrapper for sticky footer -->
     <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
-    <main class="page-wrapper">
+    <main class="">
         <!-- Navbar -->
         <!-- Remove "fixed-top" class to make navigation bar scrollable with the page -->
         <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top">
@@ -255,20 +257,14 @@
         </header>
 
         <!-- Page Content -->
-        <main class="container pt-5 pt-lg-6 text-dark">
+        <main class="fixed-bottom pt-5 mb-0 h-100 pt-lg-6 text-dark">
             {{ $slot }}
         </main>
+        @livewire('alerta-component')
     </main>
 
 
-    <!-- Footer -->
-    <footer class="footer border-top">
-        <div class="container text-center pt-2 pt-md-4 pt-lg-5 pb-xl-3">
-            <div class="pt-5 mt-lg-3 mt-xl-4">
-                <p class="text-muted mb-0">Desenvolvido por <a href="https://github.com/wendel-sa" target="_blank" class="text-primary fw-medium">Wendel Amorim</a></p>
-            </div>
-        </div>
-    </footer>
+
 
 
     <!-- Back to top button -->
@@ -281,6 +277,8 @@
 
     @livewireScripts
 
+    @stack('scripts')
+
     <!-- Vendor Scripts -->
     <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js')}}"></script>
@@ -290,6 +288,8 @@
 
     <!-- Main Theme Script -->
     <script src="{{asset('assets/js/theme.min.js')}}"></script>
+    <script src="{{asset('assets/js/qrcode.js')}}"></script>
+
 
 </body>
 

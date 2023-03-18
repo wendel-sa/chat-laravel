@@ -1,5 +1,3 @@
 <x-app-layout>
-    <div class="my-5">
-        @livewire('chat-component')
-    </div>
+    @livewire('chat-component')
 </x-app-layout>

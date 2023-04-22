@@ -37,6 +37,9 @@
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="{{asset('assets/css/theme.min.css')}}">
 
+
+    @stack('styles')
+
     <!-- Page loading styles -->
     <style>
         .page-loading {
@@ -133,6 +136,10 @@
                 transform: rotate(360deg);
             }
         }
+
+        .msg {
+            visibility: hidden;
+        }
     </style>
 
 
@@ -162,18 +169,9 @@
     </script>
 </head>
 
-<body>
+<body style="background-color: #111b21;">
 
-    <!-- Page loading spinner -->
-    <div class="page-loading active">
-        <div class="page-loading-inner">
-            <div class="page-spinner"></div><span>Loading...</span>
-        </div>
-    </div>
-
-
-    <!-- Page wrapper for sticky footer -->
-    <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
+    
     <main class="">
         <!-- Navbar -->
         <!-- Remove "fixed-top" class to make navigation bar scrollable with the page -->
@@ -240,6 +238,9 @@
                                 <a href="{{route('chat')}}" class="nav-link {{request()->routeIs('chat') ? 'active' : ''}}"><i class="bx bx-chat me-2"></i>Chat</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{route('p')}}" class="nav-link {{request()->routeIs('p') ? 'active' : ''}}"><i class="bx bx-info-circle me-2"></i>Apresentação</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{route('docs')}}" class="nav-link {{request()->routeIs('docs') ? 'active' : ''}}"><i class="bx bx-docs me-2"></i>Documentação</a>
                             </li>
                         </ul>
@@ -273,11 +274,15 @@
         <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
     </a>
 
-    @stack('modals')
+
 
     @livewireScripts
 
     @stack('scripts')
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 
     <!-- Vendor Scripts -->
     <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
@@ -285,11 +290,17 @@
     <script src="{{asset('assets/vendor/rellax/rellax.min.js')}}"></script>
     <script src="{{asset('assets/vendor/@lottiefiles/lottie-player/dist/lottie-player.js')}}"></script>
     <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/lightgallery/plugins/fullscreen/lg-fullscreen.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/lightgallery/plugins/zoom/lg-zoom.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/lightgallery/plugins/video/lg-video.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/lightgallery/plugins/thumbnail/lg-thumbnail.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/lightgallery/lightgallery.min.js')}}"></script>
 
     <!-- Main Theme Script -->
     <script src="{{asset('assets/js/theme.min.js')}}"></script>
     <script src="{{asset('assets/js/qrcode.js')}}"></script>
 
+    @stack('modals')
 
 </body>
 

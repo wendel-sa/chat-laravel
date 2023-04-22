@@ -32,6 +32,14 @@ Route::middleware([
     Route::get('/chat', function () {
         return view('chat');
     })->name('chat');
+
+    Route::get('/apresentacao', function () {
+        return view('apresentacao');
+    })->name('p');
+
+    Route::get('/apresentacao/{id}', function () {
+        return view('apresentacao.show');
+    })->name('p.show');
 });
 
 //rota de share da mensagem

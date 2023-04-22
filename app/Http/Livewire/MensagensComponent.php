@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Conversa;
-//Topicos
 use App\Models\Topico;
 use App\Models\vozModelo;
 use Illuminate\Support\Facades\Auth;

@@ -1,4 +1,4 @@
-<div id="contactsList" class="offcanvas-lg offcanvas-start position-absolute position-lg-relative h-100 bg-secondary shadow-none border-end" data-bs-scroll="true" data-bs-backdrop="false" style="max-height: 100vh;">
+<div id="contactsList" class="offcanvas-lg offcanvas-start position-absolute position-lg-relative h-100 border-end" data-bs-scroll="true" data-bs-backdrop="false" style="max-height: 100vh;">
     <div class="card-header w-100 border-0 p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0">Novo Topico</h1>

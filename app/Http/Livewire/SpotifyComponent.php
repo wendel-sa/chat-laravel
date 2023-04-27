@@ -3,24 +3,19 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Alaouy\Youtube\Facades\Youtube;
+use Spotify;
 
-class ResumoMensagem extends Component
+class SpotifyComponent extends Component
 {
 
-    protected $listeners = [
-        'openModal' => 'showModal',
-    ];
-
-    public $showModal = false;
-
-
-    public $mensagem, $videos, $open = false;
+    public $search = '', $tracks = [], $track = [], $open = false;
+    public $mensagem;
 
     public function mount($message)
     {
         $this->mensagem = $message['content'];
     }
+
 
     public function palavrasChaves($mensagem)
     {
@@ -30,7 +25,7 @@ class ResumoMensagem extends Component
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
             "model" => "text-davinci-003",
-            "prompt" => "Extraia o titulo para uma pesquisa no youtube do seguinte texto:\n\n" . $mensagem,
+            "prompt" => "Extraia o titulo para uma pesquisa no spotify uma playlist seguinte texto:\n\n" . $mensagem,
             "temperature" => 0.5,
             "max_tokens" => 60,
             "top_p" => 1.0,
@@ -60,27 +55,15 @@ class ResumoMensagem extends Component
         return $texto;
     }
 
-    public function searchYoutube()
+    public function search()
     {
-        $this->open = true;
-        $pesquisa = $this->palavrasChaves($this->mensagem);
-        $videos = Youtube::searchVideos($pesquisa, 10);
-        $dados = [];
-        foreach ($videos as $video) {
-            $dado = $videoList = Youtube::getVideoInfo($video->id->videoId);
-            $dados[] = $dado;
-        }
-
-        $this->videos = $dados;
-    }
-
-    public function showModal()
-    {
-        $this->showModal = true;
+        $this->search = $this->palavrasChaves($this->mensagem);
+        $this->tracks = Spotify::searchEpisodes($this->search)->get();
+        dd($this->tracks, $this->search);
     }
 
     public function render()
     {
-        return view('livewire.resumo-mensagem');
+        return view('livewire.spotify-component');
     }
 }

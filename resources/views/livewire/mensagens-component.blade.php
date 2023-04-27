@@ -1,8 +1,8 @@
-<div class="card h-100 border-0 bg-transparent pb-5">
+<div class="card border-0 bg-transparent pb-5">
     @if($select)
     <!-- Header -->
 
-    <div class="navbar card-header d-flex align-items-center justify-content-between w-100 p-sm-4 p-3 row">
+    <div class="navbar card-header d-flex align-items-center justify-content-between w-100 p-sm-4 p-x3 row">
         <div class="d-flex align-items-center pe-3 col-4">
             <button type="button" class="navbar-toggler d-lg-none me-3" data-bs-toggle="offcanvas" data-bs-target="#contactsList" aria-controls="contactsList" aria-label="Toggle contacts list">
                 <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
     </div>
 
     <!-- Messages -->
-    <div class="card-body w-100 pb-0 overflow-auto" style="max-height: 100vh;" id="mensagens">
+    <div class="card-body w-100 pb-0 overflow-auto" style="max-height: 80vh;" id="mensagens">
 
         @if($numMensagens > 0)
 
@@ -44,7 +44,7 @@
         @if ($message['role'] === 'user')
         <div class="d-flex align-items-start justify-content-end mb-3">
             <div class="pe-2 me-1" style="max-width: 548px">
-                <div class="text-light p-3 mb-1" style="border-top-left-radius: .5rem; border-bottom-right-radius: .5rem; border-bottom-left-radius: .5rem; background-color: #343541;">
+                <div class="text-dark p-3 mb-1 bg-faded-info" style="border-top-left-radius: .5rem; border-bottom-right-radius: .5rem; border-bottom-left-radius: .5rem;">
                     {{ $message['content'] }}
                 </div>
                 <div class="d-flex justify-content-end align-items-center fs-sm text-muted">
@@ -63,8 +63,8 @@
         <div class="d-flex align-items-start mb-3">
 
             <!-- Testimonial: Style 1 -->
-            <figure class="card h-100 position-relative border-0 shadow-sm pt-4 mt-4" style="max-width: 50vw; background-color: #202c33;">
-                <span class="btn btn-icon btn-dark pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
+            <figure class="card h-100 position-relative border-0 shadow shadow-success pt-4 mt-4 bg-faded-success text-dark" style="max-width: 50vw;">
+                <span class="btn btn-icon btn-success pe-none position-absolute top-0 start-0 translate-middle-y ms-4">
                     <i class="bi bi-cloud-fill"></i>
                 </span>
                 <blockquote class="card-body mb-0">
@@ -75,15 +75,16 @@
                 </blockquote>
 
                 @livewire('resumo-mensagem', ['message' => $message], key($message->id))
+                @livewire('spotify-component', ['message' => $message], key($message->id))
 
                 <figcaption class="card-footer border-0 d-flex align-items-center pt-0">
-                    <button wire:click="textAudio('{{$message->id}}')" class="btn btn-icon btn-outline-primary me-2">
+                    <button wire:click="textAudio('{{$message->id}}')" class="btn btn-icon btn-outline-dark me-2">
                         <i class="bi bi-volume-up-fill"></i>
                     </button>
-                    <button class="btn btn-icon btn-outline-primary me-2" onclick="copyToClipboard('assitent-message->{{ $message->id }}')">
+                    <button class="btn btn-icon btn-outline-dark me-2" onclick="copyToClipboard('assitent-message->{{ $message->id }}')">
                         <i class="bi bi-clipboard"></i>
                     </button>
-                    <button wire:click="qrcode('{{$message->id}}')" class="btn btn-icon btn-outline-primary me-2">
+                    <button wire:click="qrcode('{{$message->id}}')" class="btn btn-icon btn-outline-dark me-2">
                         <i class="bi bi-share"></i>
                     </button>
                     <div class="ps-3">

@@ -169,12 +169,15 @@
     </script>
 </head>
 
-<body style="background-color: #111b21;">
+<body style="background-color: #f1f3f4;">
 
-    
-    <main class="">
+
+
+    <main class="row">
+
+
         <!-- Navbar -->
-        <!-- Remove "fixed-top" class to make navigation bar scrollable with the page -->
+        <!-- Remove "fixed-top" class to make navigation bar scrollable with the page
         <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top">
             <div class="container px-3">
                 <a href="#" class="navbar-brand pe-3">
@@ -198,7 +201,7 @@
                                     <div class="d-lg-flex">
                                         <div class="mega-dropdown-column pt-lg-3 pb-lg-4">
 
-                                            <!-- Account Management -->
+                                            <!-- Account Management 
                                             <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-600">
                                                 {{ __('Manage Account') }}
                                             </div>
@@ -215,7 +218,7 @@
 
                                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                            <!-- Authentication -->
+                                            <!-- Authentication 
                                             <form method="POST" action="{{ route('logout') }}" x-data>
                                                 @csrf
 
@@ -256,11 +259,98 @@
                 </button>
             </div>
         </header>
+    -->
 
-        <!-- Page Content -->
-        <main class="fixed-bottom pt-5 mb-0 h-100 pt-lg-6 text-dark">
-            {{ $slot }}
-        </main>
+        <div class="row">
+
+            <div class="col-1 mx-3" style="width: 4.5rem;">
+
+                <aside class="flex-column flex-shrink-0 p-3">
+                    <a href="#" class="d-block p-3 link-body-emphasis text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+                        <i class="bi bi-chat-left-text fs-3"></i>
+                        <span class="visually-hidden">Icon-only</span>
+                    </a>
+                    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bx bx-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('chat')}}" class="nav-link py-3 border-bottom rounded-0 {{request()->routeIs('chat') ? 'active' : ''}}" title="chat" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-chat-left-text"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('p')}}" class="nav-link {{request()->routeIs('p') ? 'active' : ''}} py-3 border-bottom rounded-0" title="Apresentações" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-file-earmark-easel-fill"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Products">
+                                    <use xlink:href="#grid" />
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('docs')}}" class="nav-link {{request()->routeIs('docs') ? 'active' : ''}} py-3 border-bottom rounded-0" title="Documentação" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-info"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="dropdown border-top">
+                        <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                            <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+
+                            @else
+                            <div class="nav-link py-3 border-bottom rounded-0 text-uppercase d-flex align-items-center justify-content-center">
+                                <span class="initials"></span>
+                            </div>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu text-small shadow">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-600">
+                                {{ __('Manage Account') }}
+                            </div>
+
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+
+                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                            <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                {{ __('API Tokens') }}
+                            </x-dropdown-link>
+                            @endif
+
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+
+
+
+            <div class="col-11 container pt-5">
+                <main class="mb-0 h-100 pt-lg-6 shadow shadow-primary bg-faded-primary">
+                    {{ $slot }}
+                </main>
+            </div>
+
+        </div>
         @livewire('alerta-component')
     </main>
 
@@ -299,6 +389,15 @@
     <!-- Main Theme Script -->
     <script src="{{asset('assets/js/theme.min.js')}}"></script>
     <script src="{{asset('assets/js/qrcode.js')}}"></script>
+    <script>
+        var name = "{{ Auth::user()->name }}";
+        var initials = name.split(' ').map(function(n) {
+            return n[0];
+        }).join('');
+
+        document.querySelector('.initials').textContent = initials;
+    </script>
+
 
     @stack('modals')
 

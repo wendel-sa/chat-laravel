@@ -6,7 +6,7 @@
         </div>
 
         <!-- Chat window -->
-        <div class="col-lg-10" style="max-height: 100vh;">
+        <div class="col-lg-10">
             @livewire('mensagens-component')
         </div>
 
